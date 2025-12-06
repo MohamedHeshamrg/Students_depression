@@ -96,29 +96,29 @@ fig.suptitle('Mental Health Factors Analysis Dashboard', fontsize=20, fontweight
 # 1.1 Depression Distribution
 depression_counts = df['Depression'].value_counts()
 axes[0, 0].pie(depression_counts.values, labels=['No Depression', 'Depression'], 
-               autopct='%1.1f%%', colors = ['#3EB489', '#FFB6C1'])  # Mint + Pink, startangle=90)
+               autopct='%1.1f%%', colors = ['#3EB489', '#66b3ff'])  
 axes[0, 0].set_title('Depression Distribution', fontsize=14, fontweight='bold')
 
 # 1.2 Suicidal Thoughts vs Depression
 suicidal_depression = pd.crosstab(df['Have you ever had suicidal thoughts ?'], df['Depression'])
-suicidal_depression.plot(kind='bar', ax=axes[0, 1], color=['#66b3ff', '#ff9999'])
+suicidal_depression.plot(kind='bar', ax=axes[0, 1], color=['#3EB489', '#66b3ff'])
 axes[0, 1].set_title('Suicidal Thoughts vs Depression')
 axes[0, 1].legend(['No Depression', 'Depression'])
 
 # 1.3 Sleep Duration vs Depression
 sleep_order = ["'5-6 hours'", "'Less than 5 hours'", "'7-8 hours'", "'More than 8 hours'"]
 sleep_depression = pd.crosstab(df['Sleep Duration'], df['Depression']).reindex(sleep_order)
-sleep_depression.plot(kind='bar', ax=axes[0, 2], color=['#66b3ff', '#ff9999'])
+sleep_depression.plot(kind='bar', ax=axes[0, 2], color=['#3EB489', '#66b3ff'])
 axes[0, 2].set_title('Sleep Duration vs Depression', fontsize=14, fontweight='bold')
 
 # 1.4 Academic Pressure vs Study Satisfaction
 pressure_satisfaction = df.groupby('Academic Pressure')['Study Satisfaction'].mean()
-axes[1, 0].bar(pressure_satisfaction.index, pressure_satisfaction.values, color='#4c72b0')
+axes[1, 0].bar(pressure_satisfaction.index, pressure_satisfaction.values, color='#3EB489')
 axes[1, 0].set_title('Academic Pressure vs Study Satisfaction')
 
 # 1.5 Dietary Habits
 diet_counts = df['Dietary Habits'].value_counts()
-axes[1, 1].bar(diet_counts.index, diet_counts.values, color=['#55a868', '#c44e52', '#8172b2'])
+axes[1, 1].bar(diet_counts.index, diet_counts.values, color=['#3EB489', '#c44e52', '#8172b2'])
 axes[1, 1].set_title('Dietary Habits Distribution')
 
 # 1.6 Age Distribution
@@ -127,17 +127,17 @@ axes[1, 2].set_title('Age Distribution')
 
 # 1.7 Financial Stress vs Depression Rate
 financial_depression = df.groupby('Financial Stress')['Depression'].mean() * 100
-axes[2, 0].plot(financial_depression.index, financial_depression.values, marker='o', color='#c44e52')
+axes[2, 0].plot(financial_depression.index, financial_depression.values, marker='o', color='#3EB489')
 axes[2, 0].set_title('Financial Stress vs Depression Rate (%)')
 
 # 1.8 Study Hours Dist.
-axes[2, 1].hist(df['Work/Study Hours'], bins=20, color='#55a868', edgecolor='black')
+axes[2, 1].hist(df['Work/Study Hours'], bins=20, color='#3EB489', edgecolor='black')
 axes[2, 1].set_title('Work/Study Hours Distribution')
 
 # 1.9 Family Mental Illness
 family_counts = df['Family History of Mental Illness'].value_counts()
 axes[2, 2].pie(family_counts.values, labels=family_counts.index, autopct='%1.1f%%',
-               colors=['#66b3ff', '#ff9999'])
+               colors=['#3EB489', '#66b3ff'])
 axes[2, 2].set_title('Family Mental Illness History')
 
 st.pyplot(fig)
@@ -166,7 +166,7 @@ st.write("## 🔍 Detailed Factor Analysis")
 
 fig3, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-sns.boxplot(data=df, x='Depression', y='GPA', ax=axes[0, 0], palette=['#66b3ff', '#ff9999'])
+sns.boxplot(data=df, x='Depression', y='GPA', ax=axes[0, 0], palette=['#3EB489', '#66b3ff'])
 axes[0, 0].set_title('GPA by Depression')
 
 sns.scatterplot(data=df, x='Academic Pressure', y='Study Satisfaction', hue='Depression', ax=axes[0, 1])
@@ -286,6 +286,7 @@ st.dataframe(df.describe(include="O").T)
 
 
 # ------------------------------
+
 
 
 
