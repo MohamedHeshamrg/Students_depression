@@ -96,7 +96,7 @@ fig.suptitle('Mental Health Factors Analysis Dashboard', fontsize=20, fontweight
 # 1.1 Depression Distribution
 depression_counts = df['Depression'].value_counts()
 axes[0, 0].pie(depression_counts.values, labels=['No Depression', 'Depression'], 
-               autopct='%1.1f%%', colors = ['#3EB489', '#FFB6C1']  # Mint + Pink, startangle=90)
+               autopct='%1.1f%%', colors = ['#3EB489', '#FFB6C1'])  # Mint + Pink, startangle=90)
 axes[0, 0].set_title('Depression Distribution', fontsize=14, fontweight='bold')
 
 # 1.2 Suicidal Thoughts vs Depression
