@@ -18,15 +18,15 @@ import sys
 
 
 
-st.set_page_config(page_title="Descriptive Analytics ", page_icon="🌎", layout="wide")  
+st.set_page_config(page_title="Students Depression Dashboard", page_icon="🌎", layout="wide")
 
 # Custom heading with beige background and dark text
 def heading():
     st.markdown("""  
         <style>
         .custom-heading {
-            background-color: #F5F5DC;  /* اللون البيج */
-            color: #333333;             /* خط غامق عشان يبان */
+            background-color: #CCF5D3;  /* Mint Green */
+            color: #145A32;             /* Dark Green */
             padding: 20px;
             border-radius: 12px;
             font-size: 36px;
@@ -46,38 +46,41 @@ def heading():
 
 
 
+
 #remove default theme
 theme_plotly = None # None or streamlit
 
  
 st.markdown("""
     <style>
-    /* Change st.info background to beige */
+    /* Change st.info background to mint green */
     div.stAlert {
-        background-color: #F5DEB3 !important;   /* Beige */
-        border-left: 6px solid #C5A880 !important; /* Dark beige border */
-    }.plot-container > div {
-    box-shadow: 0 0 4px #cccccc;
-    padding: 10px;
+        background-color: #CCF5D3 !important;   /* Mint Green */
+        border-left: 6px solid #27AE60 !important; /* Darker green border */
+    }
+    
+    .plot-container > div {
+        box-shadow: 0 0 4px #cccccc;
+        padding: 10px;
     }
 
     /* Change text color inside st.info */
     div.stAlert p {
-        color: #4a3f35 !important;  /* Dark brown text */
+        color: #145A32 !important;  /* Dark green text */
         font-weight: bold;
     }
     
     </style>
 """, unsafe_allow_html=True)
 
+
 # Reading parts
 # Reading parts
 @st.cache_data
 def load_data():
-    df = pd.read_parquet("https://raw.githubusercontent.com/MohamedHeshamrg/Zomato/main/data/preprocessed/data.parquet")
+    df = pd.read_parquet("https://raw.githubusercontent.com/MohamedHeshamrg/Students_depression/main/data/preprocessed/data.parquet")
     return df
 df = load_data()
-df['success_cat'] = df["success_score"].map({1: "Success", 0: "Fail"})
 
 
 
@@ -92,123 +95,122 @@ def HomePage():
  with st.expander("🧭 My database"):
   #st.dataframe(df_selection,use_container_width=True)
   st.dataframe(df,use_container_width=True)
+# =========================
+# 2. Compute Top Analytics
+# =========================
 
- #2. compute top Analytics
- 
- Total_restorant = 7148
- Most_have_branches = 89
- The_city_withthemostrestaurants = 2799
- The_most_type= 22021	 
+Total_depression = 21          # عدد الطلاب المصابين بالاكتئاب
+Suicidal_Thoughts = 63         # نسبة الذين لديهم أفكار انتحارية
+Sleep_Duration = 30            # نسبة النوم غير الكافي
+The_most_type = 60             # أعلى نسبة في Degree (مثلاً Bachelor)
 
- #3. columns
- total1,total2,total3,total4 = st.columns(4,gap='large')
- with total1:
+# =========================
+# 3. Columns UI
+# =========================
 
-    st.info('Total Restorant', icon="🔎")
-    st.metric(label = 'Count', value= f"{Total_restorant}")
-    
- with total2:
-    st.info('Cafe Coffee Day Have', icon="💵")
-    st.metric(label='Sum', value=f"{Most_have_branches} Branch")
+total1, total2, total3, total4 = st.columns(4, gap='large')
 
- with total3:
-    st.info('The city with the most restaurants', icon="🍔")
-    st.metric(label= 'BTM',value=f"{The_city_withthemostrestaurants}")
+with total1:
+    st.info('Total Depressed Students', icon="🧠")
+    st.metric(label='Count', value=f"{Total_depression}")
 
- with total4:
-    st.info('Most Type of Restorant', icon="📦")
-    st.metric(label='Delivery',value=f"{The_most_type}")
+with total2:
+    st.info('Suicidal Thoughts', icon="⚠️")
+    st.metric(label='Percentage', value=f"{Suicidal_Thoughts}%")
 
+with total3:
+    st.info('Poor Sleep Duration', icon="😴")
+    st.metric(label='Percentage', value=f"{Sleep_Duration}%")
 
-    
- st.markdown("""---""")
+with total4:
+    st.info('Most Common Degree', icon="🎓")
+    st.metric(label='Bachelor', value=f"{The_most_type}%")
+
+st.markdown("""---""")
+
 
  #graphs
  
 def Graphs():
- 
 
-   with st.container():
-      col1, col2 = st.columns([4,3])
-      fig = px.histogram(
-         df,
-         x="approx_cost(for two people)",
-         nbins=30,
-         histnorm='density',
-         template="plotly_white",
-      )
+    st.markdown("### 📊 Depression Data Visual Analytics")
 
-      fig.update_layout(
-         title=f'Distribution Approx_cost(for two people)"',
-         xaxis_title="Approx Cost",
-         yaxis_title='Density'
-      )
-      fig.update_xaxes(tickangle=45)
-      fig.update_traces(marker=dict(color=px.colors.sequential.speed[0]))
+    # ======================
+    # ROW 1 → Histogram + Pie
+    # ======================
+    with st.container():
+        col1, col2 = st.columns([4, 3])
 
-      col1.plotly_chart(fig, use_container_width=True)
+        # Histogram: Age Distribution
+        fig = px.histogram(
+            df,
+            x="Age",
+            nbins=20,
+            histnorm='density',
+            template="plotly_white"
+        )
 
-      counts = df["success_cat"].value_counts()
+        fig.update_layout(
+            title="Age Distribution",
+            xaxis_title="Age",
+            yaxis_title="Density"
+        )
 
-      fig = px.pie(
-      names=counts.index,
-      values=counts.values,
-      title=f"Percentage of Success ",hole=.2
-      )
-      fig.update_traces(
-      marker=dict(colors=px.colors.sequential.speed)
-      )
-      fig.update_traces(textposition='inside', textinfo='percent+label')
-            
-      
+        fig.update_traces(marker=dict(color=px.colors.sequential.Teal[2]))
+        col1.plotly_chart(fig, use_container_width=True)
 
-      col2.plotly_chart(fig, use_container_width=True)
+        # Pie Chart: Depression vs Not Depressed
+        counts = df["Depression"].value_counts()    # 1 = Depressed, 0 = Not Depressed
 
+        fig = px.pie(
+            names=["Not Depressed", "Depressed"],
+            values=counts.values,
+            title="Depression Rate",
+            hole=0.25
+        )
 
+        fig.update_traces(marker=dict(colors=px.colors.sequential.Teal))
+        fig.update_traces(textposition='inside', textinfo='percent+label')
 
-   with st.container():
-      rest_columns = df.filter(regex="^Rest_").columns
+        col2.plotly_chart(fig, use_container_width=True)
 
-      long_data = []
+    # ======================
+    # ROW 2 → Bar + Violin
+    # ======================
+    with st.container():
+        col1, col2 = st.columns(2)
 
-      for col in rest_columns:
-         avg_rating = (df[col] * df['rate']).sum() / df[col].sum() if df[col].sum() != 0 else 0
-         long_data.append({'Restaurant Type': col, 'Average_Rating': avg_rating})
+        # Bar Chart: Depression by Gender
+        dep_by_gender = df.groupby("Gender")["Depression"].mean().reset_index()
+        dep_by_gender["Depression %"] = dep_by_gender["Depression"] * 100
 
-      rest_df_long = pd.DataFrame(long_data)
+        fig = px.bar(
+            dep_by_gender,
+            x="Gender",
+            y="Depression %",
+            title="Depression Percentage by Gender",
+            color="Depression %",
+            color_continuous_scale=px.colors.sequential.Teal_r
+        )
 
-      rest_df_long = rest_df_long.sort_values("Average_Rating", ascending=False)
+        col1.plotly_chart(fig, use_container_width=True)
 
-      fig = px.bar(
-         rest_df_long,
-         x='Restaurant Type',
-         y='Average_Rating',
-         title="Restaurant Types Rating Distribution",
-         labels={'Restaurant Type': 'Restaurant Type', 'Average Rating':'Average Rating'},
-         color='Average_Rating',
-         color_continuous_scale=px.colors.sequential.speed_r)
+        # Violin Plot: GPA vs Depression
+        fig = px.violin(
+            df,
+            y="GPA",
+            x="Depression",
+            color="Depression",
+            template="plotly_white",
+            title="GPA Distribution by Depression Status"
+        )
 
+        fig.update_xaxes(
+            tickvals=[0, 1],
+            ticktext=["Not Depressed", "Depressed"]
+        )
 
-      fig.update_layout(xaxis_tickangle=-45)
-
-
-      col1.plotly_chart(fig, use_container_width=True)
-
-      fig = px.violin(
-         df,
-         x="votes",  
-         template="plotly_white",
-         title=f' Violin Plot of Votes'
-         )
-
-      fig.update_layout(
-         xaxis_title=col,
-         )
-      fig.update_traces(marker=dict(color=px.colors.sequential.speed[0]))
-
-      fig.update_xaxes(tickangle=45)  
-
-      col2.plotly_chart(fig, use_container_width=True)
+        col2.plotly_chart(fig, use_container_width=True)
 
 
 
@@ -249,6 +251,7 @@ a:hover {
 """
 
 st.markdown(footer, unsafe_allow_html=True)
+
 
 
 
