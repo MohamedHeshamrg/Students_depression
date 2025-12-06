@@ -73,7 +73,6 @@ def load_data():
     df = pd.read_parquet(r"https://raw.githubusercontent.com/MohamedHeshamrg/Students_depression/main/data/preprocessed/data.parquet")
     return df
 df = load_data()
-df['success_cat'] = df["success_score"].map({1: "Success", 0: "Fail"})
 
 
 
@@ -287,6 +286,7 @@ st.dataframe(df.describe(include="O").T)
 
 
 # ------------------------------
+
 
 
 
