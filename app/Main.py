@@ -221,37 +221,7 @@ Graphs()
      
   
 
-footer = """
-<style>
-a {
-    color: #333333;
-    text-decoration: none;
-}
-a:hover {
-    color: red;
-    text-decoration: underline;
-}
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #F5DEB3;  /* Beige */
-    color: #333333;             /* Dark text */
-    text-align: center;
-    padding: 8px 0;
-    font-weight: bold;
-    font-size: 16px;
-}
-</style>
-
-<div class="footer">
-    Developed by Mohamed Hesham Ragab
-</div>
-"""
-
-st.markdown(footer, unsafe_allow_html=True)
 
 
 
