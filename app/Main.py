@@ -20,6 +20,7 @@ import sys
 
 st.set_page_config(page_title="Students Depression Dashboard", page_icon="🌎", layout="wide")
 
+
 # Custom heading with beige background and dark text
 def heading():
     st.markdown("""  
@@ -99,34 +100,34 @@ def HomePage():
 # 2. Compute Top Analytics
 # =========================
 
-Total_depression = 21          # عدد الطلاب المصابين بالاكتئاب
-Suicidal_Thoughts = 63         # نسبة الذين لديهم أفكار انتحارية
-Sleep_Duration = 30            # نسبة النوم غير الكافي
-The_most_type = 60             # أعلى نسبة في Degree (مثلاً Bachelor)
+ Total_depression = 21          # عدد الطلاب المصابين بالاكتئاب
+ Suicidal_Thoughts = 63         # نسبة الذين لديهم أفكار انتحارية
+ Sleep_Duration = 30            # نسبة النوم غير الكافي
+ The_most_type = 60             # أعلى نسبة في Degree (مثلاً Bachelor)
 
 # =========================
 # 3. Columns UI
 # =========================
 
-total1, total2, total3, total4 = st.columns(4, gap='large')
+ total1, total2, total3, total4 = st.columns(4, gap='large')
 
-with total1:
-    st.info('Total Depressed Students', icon="🧠")
-    st.metric(label='Count', value=f"{Total_depression}")
+ with total1:
+     st.info('Total Depressed Students', icon="🧠")
+     st.metric(label='Count', value=f"{Total_depression}")
 
-with total2:
-    st.info('Suicidal Thoughts', icon="⚠️")
-    st.metric(label='Percentage', value=f"{Suicidal_Thoughts}%")
+ with total2:
+     st.info('Suicidal Thoughts', icon="⚠️")
+     st.metric(label='Percentage', value=f"{Suicidal_Thoughts}%")
 
-with total3:
-    st.info('Poor Sleep Duration', icon="😴")
-    st.metric(label='Percentage', value=f"{Sleep_Duration}%")
+ with total3:
+     st.info('Poor Sleep Duration', icon="😴")
+     st.metric(label='Percentage', value=f"{Sleep_Duration}%")
 
-with total4:
-    st.info('Most Common Degree', icon="🎓")
-    st.metric(label='Bachelor', value=f"{The_most_type}%")
+ with total4:
+     st.info('Most Common Degree', icon="🎓")
+     st.metric(label='Bachelor', value=f"{The_most_type}%")
 
-st.markdown("""---""")
+ st.markdown("""---""")
 
 
  #graphs
@@ -251,6 +252,7 @@ a:hover {
 """
 
 st.markdown(footer, unsafe_allow_html=True)
+
 
 
 
