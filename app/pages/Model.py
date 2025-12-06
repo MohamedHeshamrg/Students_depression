@@ -52,42 +52,44 @@ def main():
     pred = None
 
     if st.button('🔮 Predict'):
-        pred = predict(Sleep_Duration, Dietary_Habits, Degree, Family_History_of_Mental_Illness,
-                       Have_you_ever_had_suicidal_thoughts, Gender, Age, Academic_Pressure,
-                       Study_Satisfaction, Work_Study_Hours, Financial_Stress, GPA)
+        pred = predict(
+            Sleep_Duration, Dietary_Habits, Degree,
+            Family_History_of_Mental_Illness, Have_you_ever_had_suicidal_thoughts,
+            Gender, Age, Academic_Pressure, Study_Satisfaction,
+            Work_Study_Hours, Financial_Stress, GPA
+        )
 
-            if pred is not None:
-            
-                if pred == "Not Depressed":
-                    color = "#2ecc71"   # Green
-                    emoji = "😊"
-                else:
-                    color = "#e74c3c"   # Red
-                    emoji = "⚠️"
-            
-                st.markdown(f"""
-                    <div style="
-                        background-color: white;
-                        border-left: 10px solid {color};
-                        padding: 20px;
-                        border-radius: 10px;
-                        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-                        margin-top: 25px;
-                    ">
-                        <h2 style="color:{color}; margin-bottom: 5px;">{emoji} Prediction Result</h2>
-                        <p style="font-size:22px; font-weight:bold; color:black;">
-                            The person is: <span style="color:{color};">{pred}</span>
-                        </p>
-                    </div>
-                """, unsafe_allow_html=True)
+        # ---- RESULT CARD ----
+        if pred is not None:
 
+            if pred == "Not Depressed":
+                color = "#2ecc71"   # Green
+                emoji = "😊"
+            else:
+                color = "#e74c3c"   # Red
+                emoji = "⚠️"
 
-
+            st.markdown(f"""
+                <div style="
+                    background-color: white;
+                    border-left: 10px solid {color};
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                    margin-top: 25px;
+                ">
+                    <h2 style="color:{color}; margin-bottom: 5px;">{emoji} Prediction Result</h2>
+                    <p style="font-size:22px; font-weight:bold; color:black;">
+                        The person is: <span style="color:{color};">{pred}</span>
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
 
 
 
 if __name__ == '__main__':
     main()
+
 
 
 
