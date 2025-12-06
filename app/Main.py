@@ -39,7 +39,7 @@ def heading():
         </style>
 
         <div class="custom-heading">
-            📈 Descriptive Analytics 📊
+            📈 Students Depression Dashboard 📊
         </div>
     """, unsafe_allow_html=True)
 
@@ -252,6 +252,7 @@ a:hover {
 """
 
 st.markdown(footer, unsafe_allow_html=True)
+
 
 
 
