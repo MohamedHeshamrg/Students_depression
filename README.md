@@ -23,10 +23,3 @@ This project aims to **predict depression in students** using machine learning m
     - ❌ Depressed (red)
 
 ---
-
-## 🛠️ Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/students-depression.git
-   cd students-depression
