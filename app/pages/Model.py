@@ -51,7 +51,7 @@ def main():
 
     Gender = st.selectbox('Gender', ['Male', 'Female'])
 
-    Age = st.number_input('Age', min_value=18, max_value=43, value=1000)
+    Age = st.number_input('Age', min_value=18, max_value=43, value=20)
     Academic_Pressure = st.slider('Academic Pressure', min_value=1.0, max_value=5.0, value=3.0, step=1.0)
     Study_Satisfaction = st.slider('Study Satisfaction', min_value=1.0, max_value=5.0, value=3.0, step=1.0)
     Financial_Stress = st.slider('Financial Stress', min_value=1.0, max_value=5.0, value=3.0, step=1.0)
@@ -72,6 +72,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
